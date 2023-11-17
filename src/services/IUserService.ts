@@ -10,4 +10,5 @@ export default interface IUserService {
     loginUser(email: string, password: string): Promise<string>
     verifyAutoApproval(userRole: string): boolean
     validateNewUser(newUser: CreationAttributes<User>): CreationAttributes<User> | ValidationError
+    validateEmail(email: string): boolean
 }

@@ -1,4 +1,5 @@
 import { JwtPayload } from "jsonwebtoken"
+import { Request } from "express"
 
 export interface IUserData extends JwtPayload {
   id: number,
@@ -6,10 +7,6 @@ export interface IUserData extends JwtPayload {
   role: string,
 }
 
-interface AuthReq extends Request {
+export interface IAuthRequest extends Request {
   userData?: IUserData
-}
-
-export type IAuthRequest = AuthReq & {
-  headers: { authorization: string }
 }

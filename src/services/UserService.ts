@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {ValidationError} from "yup"
 import { CreationAttributes } from "sequelize"
+import validator from 'validator'
+import { UserValidationError } from '../errors/userValidationError';
 
 
 export default class UserService implements IUserService{
@@ -14,7 +16,24 @@ export default class UserService implements IUserService{
   ) {}
 
   async create(newUser: CreationAttributes<User>): Promise<boolean> {
-      return await this.userRepository.createUser(newUser)
+    if(!this.validateEmail(newUser.email)){
+      throw new UserValidationError('CPF')
+  }
+    try{
+      UserSchema.validateSync(newUser)
+      const password = await bcrypt.hash(newUser.password, 10);
+
+      return await this.userRepository.createUser({
+          ... newUser,
+          password
+      })
+    }catch(error){
+      if (error instanceof ValidationError && error.path){
+        throw new UserValidationError(error.path, error.value)
+      }else {
+        throw new Error('O email informado já foi cadastrado')
+      }
+    }
   }
 
   async loginUser(email: string, password: string): Promise<string> {
@@ -39,14 +58,18 @@ export default class UserService implements IUserService{
 }
 
   verifyAutoApproval(userRole: string): boolean {
-      return userRole === "Master" || userRole === "Developer"
+    return userRole === "Master" || userRole === "Developer"
   }
 
-  validateNewUser(newUser: CreationAttributes<User>): CreationAttributes<User> | ValidationError {
-      try {
-          return UserSchema.validateSync(newUser)
-      } catch (error) {
-          return error as ValidationError
-      }
+  validateNewUser(newUser: CreationAttributes<User> | null): CreationAttributes<User> | ValidationError {
+    try {
+      return UserSchema.validateSync(newUser)
+    } catch (error) {
+      return error as ValidationError
+    }
+  }
+
+  validateEmail(email: string): boolean {
+    return validator.isEmail(email)
   }
 }

@@ -6,34 +6,38 @@ import IUserController from "./IUserController"
 import UserService from "../services/UserService"
 import User from "../models/User"
 
-
 class UserController implements IUserController {
-
-    constructor(
-        private readonly userService: UserService
-    ) {}
+  constructor(
+    private readonly userService: UserService
+  ) {}
 
     async postUser({ userData, body }: IAuthRequest, res: Response): Promise<Response> {
-        let newUser = body as any;
+        let newUser = body
         let isApproved = this.userService.verifyAutoApproval(userData?.role!)
+        if (!isApproved) {
+          return res.status(401).json({
+            sucess: false, 
+            message: "Not authorized"
+          })
+        }
         let validatedNewUser: CreationAttributes<User> | ValidationError = this.userService.validateNewUser(newUser)
         if (validatedNewUser instanceof ValidationError) {
             return res.status(400).json({
-                success: false,
-                message: validatedNewUser.message,
-                providedValues: validatedNewUser.value
+              success: false,
+              message: validatedNewUser.message,
+              providedValues: validatedNewUser.value
             })
         }
         let wasCreationSuccessful = await this.userService.create(validatedNewUser)
         if (!wasCreationSuccessful) {
             return res.status(500).json({
-                success: false,
-                message: 'Erro: Usuário não foi cadastrado.'
+              success: false,
+              message: 'Erro: Usuário não foi cadastrado.'
             })
         }
         return res.status(201).json({
-            success: true,
-            message: 'Usuário cadastrado com sucesso!'
+          success: true,
+          message: 'Usuário cadastrado com sucesso!'
         })
     }
 
@@ -61,9 +65,8 @@ class UserController implements IUserController {
           }
       }
   }
-  
-    getUserService(): UserService {
-        return this.userService;
-    }
+  getUserService(): UserService {
+    return this.userService;
+  }
 }
 export default UserController;
