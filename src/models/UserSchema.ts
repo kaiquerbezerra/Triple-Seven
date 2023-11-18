@@ -7,6 +7,5 @@ export default object({
     email: string().required().trim(),
     birthday: date().required(),
     phone: string().required().matches(PHONE_REGEX).trim(),
-    password: string().required().min(8).max(20).matches(PASSWORD_REGEX),
-    role: string().required().trim().oneOf(["Master", "Developer"])
+    password: string().required().min(8).max(20).matches(PASSWORD_REGEX)
 })

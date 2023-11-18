@@ -12,7 +12,6 @@ module.exports = {
         birthday: process.env.ADMIN_BIRTHDAY,
         phone: process.env.ADMIN_PHONE,
         password: process.env.ADMIN_PASSWORD,
-        role: "Master",
         createdAt: new Date(),
         updatedAt: new Date()
       }

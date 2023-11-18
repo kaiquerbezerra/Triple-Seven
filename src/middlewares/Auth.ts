@@ -6,9 +6,8 @@ function authMiddleware(req: IAuthRequest, res:Response, next: NextFunction) {
   try {
     let [, token] = req.headers.authorization!.split(" ")
     let jwtSecret = process.env.JWT_SECRET as string
-    let { id, email, role } = jwt.verify(token, jwtSecret) as IUserData
-    console.log(role)
-    req.userData = { id, email, role }
+    let { id, email } = jwt.verify(token, jwtSecret) as IUserData
+    req.userData = { id, email }
     next()
 } catch (error) {
     res.status(401).json({

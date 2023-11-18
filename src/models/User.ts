@@ -14,7 +14,6 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare email: string
   declare phone: string
   declare password: string
-  declare role: string
   declare birthday: Date
 }
 
@@ -37,10 +36,6 @@ User.init({
     type: DataTypes.STRING
   },
   password: {
-    allowNull: false,
-    type: DataTypes.STRING
-  },
-  role: {
     allowNull: false,
     type: DataTypes.STRING
   },

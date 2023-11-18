@@ -3,8 +3,7 @@ import { Request } from "express"
 
 export interface IUserData extends JwtPayload {
   id: number,
-  email: string,
-  role: string,
+  email: string
 }
 
 export interface IAuthRequest extends Request {

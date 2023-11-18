@@ -50,7 +50,7 @@ export default class UserService implements IUserService{
     }
 
     let token: string
-    token = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET || '101010', {
+    token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET || '101010', {
         expiresIn: '12h'
     });
 
