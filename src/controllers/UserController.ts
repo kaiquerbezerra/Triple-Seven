@@ -1,4 +1,3 @@
-import { IAuthRequest } from "../middlewares/IAuthRequest"
 import { CreationAttributes } from "sequelize"
 import { Request, Response } from "express"
 import { ValidationError } from "yup"
@@ -11,15 +10,8 @@ class UserController implements IUserController {
     private readonly userService: UserService
   ) {}
 
-    async postUser({ userData, body }: IAuthRequest, res: Response): Promise<Response> {
-        let newUser = body
-        let isApproved = this.userService.verifyAutoApproval(userData?.role!)
-        if (!isApproved) {
-          return res.status(401).json({
-            sucess: false, 
-            message: "Not authorized"
-          })
-        }
+    async postUser(req: Request, res: Response): Promise<Response> {
+        let newUser = req.body
         let validatedNewUser: CreationAttributes<User> | ValidationError = this.userService.validateNewUser(newUser)
         if (validatedNewUser instanceof ValidationError) {
             return res.status(400).json({
