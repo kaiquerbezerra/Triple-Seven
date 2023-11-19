@@ -16,7 +16,7 @@ export default class UserService implements IUserService{
 
   async create(newUser: CreationAttributes<User>): Promise<boolean> {
     if(!this.validateEmail(newUser.email)){
-      throw new UserValidationError('CPF')
+      throw new UserValidationError('Email')
   }
     try{
       UserSchema.validateSync(newUser)
@@ -26,6 +26,25 @@ export default class UserService implements IUserService{
         ... newUser,
         password
       })
+    }catch(error){
+      if (error instanceof ValidationError && error.path){
+        throw new UserValidationError(error.path, error.value)
+      }else {
+        throw new Error('O email informado já foi cadastrado')
+      }
+    }
+  }
+
+  async remove(userId: number): Promise<boolean> {
+    return await this.userRepository.removeUser(userId)
+  }
+
+  async edit(userId: number, editedUser:  Omit<CreationAttributes<User>, 'password'>): Promise<boolean> {
+    if(!this.validateEmail(editedUser.email)){
+      throw new UserValidationError('Email')
+    }
+    try{
+      return await this.userRepository.editUser(userId, editedUser)
     }catch(error){
       if (error instanceof ValidationError && error.path){
         throw new UserValidationError(error.path, error.value)
@@ -63,6 +82,15 @@ export default class UserService implements IUserService{
   validateNewUser(newUser: CreationAttributes<User> | null): CreationAttributes<User> | ValidationError {
     try {
       return UserSchema.validateSync(newUser)
+    } catch (error) {
+      return error as ValidationError
+    }
+  }
+
+  validateEditedUser(editedUser: CreationAttributes<User> | null):  Omit<CreationAttributes<User>, 'password'> | ValidationError {
+    let userSchemaWithoutPassword = UserSchema.clone().omit(["password"])
+    try {
+      return userSchemaWithoutPassword.validateSync(editedUser)
     } catch (error) {
       return error as ValidationError
     }

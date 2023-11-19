@@ -20,11 +20,10 @@ const userController: UserController = new UserController(userService)
 
 router.post('/login', (req, res) => userController.login(req, res))
 router.post('/', (req, res) => userController.postUser(req, res))
-
-//router.put('/:id', (req, res) => userController.patchUser(req, res))
-//router.delete('/id', (req, res) => userController.deleteUser(req, res))
-
 router.use(authMiddleware)
+router.put('/:id', (req, res) => userController.patchUser(req, res))
+router.delete('/:id', (req, res) => userController.deleteUser(req, res))
+
 
 
 

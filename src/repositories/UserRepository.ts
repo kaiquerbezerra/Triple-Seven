@@ -15,4 +15,22 @@ export default class UserRepository implements IUserRepository {
       }
     })
   }
+
+  async removeUser(userId: number): Promise<boolean> {
+    let removedUser = await User.destroy({
+      where: {
+        id: userId
+      }
+    })
+    return removedUser > 0
+  }
+
+  async editUser(userId: number, modifications: Omit<UserAttributes, 'password'>) {
+    let editedUser = await User.update(modifications, {
+      where: {
+        id: userId
+      }
+    })
+    return editedUser[0] > 0
+  }
 }
