@@ -3,6 +3,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import UserRoutes from './routes/UserRoutes'
+import TaskRoutes from './routes/TaskRoutes'
+import SprintRoutes from './routes/SprintRoutes'
+import BoardRoutes from './routes/BoardRoutes'
 
 const PORT = process.env.PORT
 const HOST = process.env.HOST
@@ -15,7 +18,9 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/user', UserRoutes);
-
+//app.use('/task', TaskRoutes);
+//app.use('/sprint', SprintRoutes);
+//app.use('/board', BoardRoutes);
 
 export default app
 

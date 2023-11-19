@@ -1,12 +1,13 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize"
 import sequelize from "../utils/sequelizeConnection"
-
+import Task from "./Task"
+import Board from "./Board"
+import UserBoard from "./UserBoard"
 
 export enum Roles {
   MASTER = "Master",
   DEV = "Developer",
 }
-
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>
@@ -49,5 +50,7 @@ User.init({
   tableName: "users"
 })
 
+User.hasMany(Task)
+Task.belongsTo(User, { foreignKey: "userId", as: "assignee" })
 
 export default User
