@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 require('dotenv').config()
 
 const sequelize = new Sequelize(process.env.MYSQL_DATABASE!, process.env.MYSQL_ROOT_USER!, process.env.MYSQL_ROOT_PASSWORD!, {
-  host: 'mysql', // localhost:3307
+  host: 'mysql',
   dialect: 'mysql'
 })
 

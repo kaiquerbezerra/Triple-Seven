@@ -9,7 +9,6 @@ import { CreationAttributes } from "sequelize"
 import validator from 'validator'
 import { UserValidationError } from '../errors/userValidationError';
 
-
 export default class UserService implements IUserService{
   constructor(
       public userRepository: UserRepository
@@ -24,8 +23,8 @@ export default class UserService implements IUserService{
       const password = await bcrypt.hash(newUser.password, 10);
 
       return await this.userRepository.createUser({
-          ... newUser,
-          password
+        ... newUser,
+        password
       })
     }catch(error){
       if (error instanceof ValidationError && error.path){
@@ -40,18 +39,18 @@ export default class UserService implements IUserService{
     const user = await this.userRepository.readUserByEmail(email)
 
     if (!user) {
-        throw new Error('Usuário não encontrado')
+      throw new Error('Usuário não encontrado')
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-        throw new Error('Credenciais inválidas')
+      throw new Error('Credenciais inválidas')
     }
 
     let token: string
     token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET || '101010', {
-        expiresIn: '12h'
+      expiresIn: '12h'
     });
 
     return token

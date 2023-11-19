@@ -3,7 +3,6 @@ import IUserRepository from "./IUserRepository"
 import {UserAttributes} from "../models/UserAttributes"
 
 export default class UserRepository implements IUserRepository {
-
   async createUser(user: UserAttributes): Promise<boolean> {
     let createdUser = await User.create(user)
     return !!createdUser

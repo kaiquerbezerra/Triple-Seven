@@ -9,7 +9,7 @@ function authMiddleware(req: IAuthRequest, res:Response, next: NextFunction) {
     let { id, email } = jwt.verify(token, jwtSecret) as IUserData
     req.userData = { id, email }
     next()
-} catch (error) {
+  } catch (error) {
     res.status(401).json({
       message: 'Não autorizado'
     })
