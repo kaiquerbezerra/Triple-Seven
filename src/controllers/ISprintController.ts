@@ -8,5 +8,4 @@ export default interface ISprintController {
   getSprints(req: IAuthRequest, res:Response): Promise<Response>
   patchSprint(req: IAuthRequest, res: Response): Promise<Response>
   deleteSprint(req: IAuthRequest, res: Response): Promise<Response>
-  getSprintById(req: IAuthRequest, res: Response): Promise<Response>
 }

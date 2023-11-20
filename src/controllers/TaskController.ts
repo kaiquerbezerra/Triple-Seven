@@ -13,11 +13,6 @@ class TaskController implements ITaskController {
   ) {}
 
   async postTask({userData, body}: IAuthRequest, res: Response): Promise<Response> {
-    if (!userData?.id) {
-      return res.status(404).json({
-        message: "Não autorizado"
-      })
-    }
     let newTask = body
     let validatedNewTask: CreationAttributes<Task> | ValidationError = this.userService.validateNewTask(newTask)
     if (validatedNewTask instanceof ValidationError) {
@@ -44,7 +39,7 @@ class TaskController implements ITaskController {
     let taskId = parseInt(params.id)
     if (!userData?.id) {
       return res.status(404).json({
-        message: "Não autorizado"
+        message: "Edição apenas para usuários cadastrados"
       })
     }
     if (await this.userService.verifyTaskAutoApproval(taskId, userData.id) === false) {
@@ -79,7 +74,7 @@ class TaskController implements ITaskController {
     let taskId = parseInt(params.id)
     if (!userData?.id) {
       return res.status(404).json({
-        message: "Não autorizado"
+        message: "Deleção apenas para usuários autorizados"
       })
     }
     if (await this.userService.verifyTaskAutoApproval(taskId, userData.id) === false) {
@@ -102,11 +97,6 @@ class TaskController implements ITaskController {
   }
 
   async getTasks({ userData, query }: IAuthRequest, res: Response): Promise<Response> {
-    if (!userData?.id) {
-      return res.status(404).json({
-        message: "Não autorizado"
-      })
-    }
     try {
       let pagination = new Page(query)
       let sprintTasks = await this.userService.findAll(pagination)
@@ -129,11 +119,6 @@ class TaskController implements ITaskController {
   }
 
   async getTaskById({ userData, params }: IAuthRequest, res: Response): Promise<Response> {
-    if (!userData?.id) {
-      return res.status(404).json({
-        message: "Não autorizado"
-      })
-    }
     try {
       let taskId = parseInt(params.id)
       let task = await this.userService.findOne(taskId)

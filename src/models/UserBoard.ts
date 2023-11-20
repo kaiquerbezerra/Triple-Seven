@@ -29,7 +29,8 @@ UserBoard.init(
     modelName: 'UserBoard',
     tableName: 'user_boards',
   }
-);
+)
+
 export default UserBoard;
 
 

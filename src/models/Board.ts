@@ -29,7 +29,7 @@ Board.init({
 User.belongsToMany(Board, { through: UserBoard })
 Board.belongsToMany(User, { through: UserBoard })
 
-Board.hasMany(Sprint, { foreignKey: 'boardId' as 'sprints'})
+Board.hasMany(Sprint, { foreignKey: 'boardId', as: "sprints"})
 Sprint.belongsTo(Board, { foreignKey: "boardId", as: "boards" })
 
 export default Board
