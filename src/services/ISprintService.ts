@@ -10,7 +10,7 @@ export default interface ISprintService {
   validateNewSprint(newSprint: CreationAttributes<Sprint>): CreationAttributes<Sprint> | ValidationError
   edit(sprintId: number, editedSprint: CreationAttributes<Sprint>): Promise<boolean>
   create(newSprint: CreationAttributes<Sprint>): Promise<boolean>
-  findAll(pagination: Page): Promise<Page>
+  findAll(boardId: number, pagination: Page): Promise<Page>
   verifySprintAutoApproval(sprintId: number, userId: number | undefined): Promise<boolean>
   remove(sprintId: number): Promise<boolean>
 }

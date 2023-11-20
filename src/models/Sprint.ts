@@ -6,7 +6,7 @@ import Task from "./Task";
 class Sprint extends Model<InferAttributes<Sprint>, InferCreationAttributes<Sprint>> {
   declare id: CreationOptional<number>
   declare name: string
-  declare boardId?: NonAttribute<Board>;
+  declare boardId: number;
 }
 
 Sprint.init({
@@ -18,6 +18,10 @@ Sprint.init({
   name: {
     allowNull: false,
     type: DataTypes.STRING,
+  }, 
+  boardId: {
+    allowNull: false,
+    type: DataTypes.INTEGER
   }
 }, {
   sequelize,

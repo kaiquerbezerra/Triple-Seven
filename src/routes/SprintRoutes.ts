@@ -13,7 +13,7 @@ const sprintController: SprintController = new SprintController(sprintService)
 router.use(authMiddleware)
 
 router.post('/', (req, res) => sprintController.postSprint(req, res))
-router.get('/', (req, res) => sprintController.getSprints(req, res))
+router.get('/:id', (req, res) => sprintController.getSprints(req, res))
 router.put('/:id', (req, res) => sprintController.patchSprint(req, res))
 router.delete('/:id', (req, res) => sprintController.deleteSprint(req, res))
 

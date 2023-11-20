@@ -80,10 +80,11 @@ class SprintController implements ISprintController {
     })
   }
 
-  async getSprints({ query }: IAuthRequest, res: Response): Promise<Response> {
+  async getSprints({ params, query }: IAuthRequest, res: Response): Promise<Response> {
     try {
+      let boardId = parseInt(params?.id)
       let pagination = new Page(query)
-      let boardSprints = await this.userService.findAll(pagination)
+      let boardSprints = await this.userService.findAll(boardId, pagination)
       return res.status(200).json({
         error: {
             status: false,

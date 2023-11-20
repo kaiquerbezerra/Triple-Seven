@@ -16,8 +16,8 @@ export default class SprintService implements ISprintService{
     return await this.sprintRepository.createSprint(newSprint)
   }
 
-  async findAll(pagination: Page): Promise<Page>{
-    return await this.sprintRepository.findAllSprints(pagination)
+  async findAll(boardId:number, pagination: Page): Promise<Page>{
+    return await this.sprintRepository.findAllSprints(boardId, pagination)
   }
 
   async remove(sprintId: number): Promise<boolean> {

@@ -13,9 +13,16 @@ export default class SprintRepository implements ISprintRepository {
 		return !!createdSprint;
 	}
 
-	async findAllSprints(page: Page): Promise<Page> {
+	async findAllSprints(boardId: number, page: Page): Promise<Page> {
 		const { count, rows } = await Sprint.findAndCountAll({
-			attributes: ['id', 'name', 'boardId'],
+      where: {
+        boardId: boardId
+      },
+      include: {
+        model: Task,
+        as: 'tasks'
+      },
+			attributes: ['id', 'name'],
 			offset: page.offset,
 			limit: page.size,
 		})
@@ -26,7 +33,7 @@ export default class SprintRepository implements ISprintRepository {
 
   async removeSprint(sprintId: number): Promise<boolean> {
     try {
-      let deletedTasks = await Task.destroy({
+        await Task.destroy({
         where: {
           sprintId: sprintId
         }
