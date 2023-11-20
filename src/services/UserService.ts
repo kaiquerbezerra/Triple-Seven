@@ -1,13 +1,13 @@
 import User from '../models/User'
 import UserSchema from "../models/UserSchema"
 import UserRepository from "../repositories/UserRepository"
-import IUserService from "./IUserService";
+import IUserService from "./IUserService"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {ValidationError} from "yup"
 import { CreationAttributes } from "sequelize"
 import validator from 'validator'
-import { UserValidationError } from '../errors/userValidationError';
+import { UserValidationError } from '../errors/userValidationError'
 
 export default class UserService implements IUserService{
   constructor(
@@ -57,10 +57,10 @@ export default class UserService implements IUserService{
     let token: string
     token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET || '101010', {
       expiresIn: '12h'
-    });
+    })
 
     return token
-}
+  }
 
   verifyAutoApproval(userRole: string): boolean {
     return userRole === "Master" || userRole === "Developer"

@@ -1,11 +1,11 @@
 import Task from '../models/Task'
 import TaskSchema from "../models/TaskSchema"
 import TaskRepository from "../repositories/TaskRepository"
-import ITaskService from "./ITaskService";
+import ITaskService from "./ITaskService"
 import {ValidationError} from "yup"
 import { CreationAttributes } from "sequelize"
-import { TaskValidationError } from '../errors/taskValidationError';
-import { Page } from '../models/Page';
+import { TaskValidationError } from '../errors/taskValidationError'
+import { Page } from '../models/Page'
 
 export default class TaskService implements ITaskService{
   constructor(

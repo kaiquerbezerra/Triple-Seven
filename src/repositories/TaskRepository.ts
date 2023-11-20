@@ -1,13 +1,13 @@
 import { CreationAttributes } from "sequelize"
 import ITaskRepository from "./ITaskRepository"
 import Task from "../models/Task"
-import { Page } from "../models/Page";
-import { TaskAttributes } from "../models/TaskAttributes";
+import { Page } from "../models/Page"
+import { TaskAttributes } from "../models/TaskAttributes"
 
 export default class TaskRepository implements ITaskRepository {
-    async createTask(newTask: CreationAttributes<Task>): Promise<boolean> {
-		let createdTask = await Task.create(newTask);
-		return !!createdTask;
+  async createTask(newTask: CreationAttributes<Task>): Promise<boolean> {
+    let createdTask = await Task.create(newTask)
+    return !!createdTask
 	}
 
 	async findAllTasks(page: Page): Promise<Page> {
@@ -18,7 +18,7 @@ export default class TaskRepository implements ITaskRepository {
 		})
 		page.content = rows
 		page.registersCount = count
-		return page;
+		return page
 	}
 
   async findTask(taskId: number): Promise<Task | null> {

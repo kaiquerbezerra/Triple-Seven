@@ -141,7 +141,7 @@ class TaskController implements ITaskController {
   }
 
   getTaskService(): TaskService {
-    return this.userService;
+    return this.userService
   }
 }
-export default TaskController;
+export default TaskController

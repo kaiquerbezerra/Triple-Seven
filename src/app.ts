@@ -17,10 +17,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.use('/user', UserRoutes);
-app.use('/task', TaskRoutes);
-app.use('/sprint', SprintRoutes);
-//app.use('/board', BoardRoutes);
+app.use('/user', UserRoutes)
+app.use('/task', TaskRoutes)
+app.use('/sprint', SprintRoutes)
+app.use('/board', BoardRoutes)
 
 export default app
 

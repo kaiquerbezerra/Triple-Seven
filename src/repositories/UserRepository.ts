@@ -25,7 +25,7 @@ export default class UserRepository implements IUserRepository {
     return removedUser > 0
   }
 
-  async editUser(userId: number, modifications: Omit<UserAttributes, 'password'>) {
+  async editUser(userId: number, modifications: Omit<UserAttributes, 'password'>): Promise<boolean> {
     let editedUser = await User.update(modifications, {
       where: {
         id: userId

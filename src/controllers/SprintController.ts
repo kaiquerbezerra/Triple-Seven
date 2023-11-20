@@ -9,12 +9,12 @@ import { Page } from "../models/Page"
 
 class SprintController implements ISprintController {
   constructor(
-    private readonly userService: SprintService
+    private readonly sprintService: SprintService
   ) {}
 
   async postSprint({ body }: IAuthRequest, res: Response): Promise<Response> {
     let newSprint = body
-    let validatedNewSprint: CreationAttributes<Sprint> | ValidationError = this.userService.validateNewSprint(newSprint)
+    let validatedNewSprint: CreationAttributes<Sprint> | ValidationError = this.sprintService.validateNewSprint(newSprint)
     if (validatedNewSprint instanceof ValidationError) {
       return res.status(400).json({
         success: false,
@@ -22,7 +22,7 @@ class SprintController implements ISprintController {
         providedValues: validatedNewSprint.value
       })
     }
-    let wasCreationSuccessful = await this.userService.create(validatedNewSprint)
+    let wasCreationSuccessful = await this.sprintService.create(validatedNewSprint)
     if (!wasCreationSuccessful) {
       return res.status(500).json({
         success: false,
@@ -38,7 +38,7 @@ class SprintController implements ISprintController {
   async patchSprint({ body, params}: IAuthRequest, res: Response): Promise<Response> {
     let sprintId = parseInt(params.id)
     let editedSprint = body
-    let validatedEditedSprint: CreationAttributes<Sprint> | ValidationError = this.userService.validateNewSprint(editedSprint)
+    let validatedEditedSprint: CreationAttributes<Sprint> | ValidationError = this.sprintService.validateNewSprint(editedSprint)
     if (validatedEditedSprint instanceof ValidationError) {
       return res.status(400).json({
         success: false,
@@ -46,7 +46,7 @@ class SprintController implements ISprintController {
         providedValues: validatedEditedSprint.value
       })
     }
-    let wasEditionSuccessful = await this.userService.edit(sprintId, validatedEditedSprint)
+    let wasEditionSuccessful = await this.sprintService.edit(sprintId, validatedEditedSprint)
     if (!wasEditionSuccessful) {
       return res.status(500).json({
         success: false,
@@ -61,13 +61,13 @@ class SprintController implements ISprintController {
 
   async deleteSprint({userData, params}: IAuthRequest, res: Response): Promise<Response> {
     let sprintId = parseInt(params.id)
-    if (await this.userService.verifySprintAutoApproval(sprintId, userData?.id) === false) {
+    if (await this.sprintService.verifySprintAutoApproval(sprintId, userData?.id) === false) {
       return res.status(403).json({
         success: false,
         message: "Apenas o admin pode deletar sprints"
       })
     }
-    let wasDeletionSuccessful = await this.userService.remove(sprintId)
+    let wasDeletionSuccessful = await this.sprintService.remove(sprintId)
     if (!wasDeletionSuccessful) {
       return res.status(500).json({
         success: false,
@@ -84,7 +84,7 @@ class SprintController implements ISprintController {
     try {
       let boardId = parseInt(params?.id)
       let pagination = new Page(query)
-      let boardSprints = await this.userService.findAll(boardId, pagination)
+      let boardSprints = await this.sprintService.findAll(boardId, pagination)
       return res.status(200).json({
         error: {
             status: false,
@@ -104,7 +104,7 @@ class SprintController implements ISprintController {
   }
 
   getSprintService(): SprintService {
-    return this.userService;
+    return this.sprintService
   }
 }
-export default SprintController;
+export default SprintController

@@ -87,7 +87,7 @@ class UserController implements IUserController {
   }
 
   async login(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
+    const { email, password } = req.body
     try {
       const token = await this.userService.loginUser(email, password)
       return res.status(200).json({
@@ -100,19 +100,19 @@ class UserController implements IUserController {
           success: false,
           message: 'Usuário ou senha incorretos',
           error: error.message
-        });
+        })
       } else {
         return res.status(500).json({
           success: false,
           message: 'Falha na autenticação',
           error: error.message
-        });
+        })
       }
     }
   }
 
   getUserService(): UserService {
-    return this.userService;
+    return this.userService
   }
 }
-export default UserController;
+export default UserController

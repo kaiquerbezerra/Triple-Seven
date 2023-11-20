@@ -1,12 +1,11 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, NonAttribute } from "sequelize"
 import sequelize from "../utils/sequelizeConnection"
-import Board from "./Board"
-import Task from "./Task";
+import Task from "./Task"
 
 class Sprint extends Model<InferAttributes<Sprint>, InferCreationAttributes<Sprint>> {
   declare id: CreationOptional<number>
   declare name: string
-  declare boardId: number;
+  declare boardId: number
 }
 
 Sprint.init({

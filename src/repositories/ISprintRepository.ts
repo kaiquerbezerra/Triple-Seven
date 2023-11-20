@@ -4,7 +4,7 @@ import {SprintAttributes} from "../models/SprintAttributes"
 import { Page } from "../models/Page"
 
 export default interface ISprintRepository {
-  createSprint(user: SprintAttributes): Promise<boolean>
+  createSprint(newSprint: SprintAttributes): Promise<boolean>
   findAllSprints(boardId:number, page: Page): Promise<Page>
   removeSprint(taskId: number): Promise<boolean>
   editSprint(taskId: number, changes: CreationAttributes<Sprint>): Promise<boolean>

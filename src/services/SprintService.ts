@@ -1,11 +1,11 @@
 import Sprint from '../models/Sprint'
 import SprintSchema from "../models/SprintSchema"
 import SprintRepository from "../repositories/SprintRepository"
-import ISprintService from "./ISprintService";
+import ISprintService from "./ISprintService"
 import {ValidationError} from "yup"
 import { CreationAttributes } from "sequelize"
-import { SprintValidationError } from '../errors/sprintValidationError';
-import { Page } from '../models/Page';
+import { SprintValidationError } from '../errors/sprintValidationError'
+import { Page } from '../models/Page'
 
 export default class SprintService implements ISprintService{
   constructor(

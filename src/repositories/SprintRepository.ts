@@ -1,16 +1,16 @@
 import { CreationAttributes } from "sequelize"
 import ISprintRepository from "./ISprintRepository"
 import Sprint from "../models/Sprint"
-import UserBoard from "../models/UserBoard";
-import { Page } from "../models/Page";
-import { SprintAttributes } from "../models/SprintAttributes";
-import Board from "../models/Board";
-import Task from "../models/Task";
+import UserBoard from "../models/UserBoard"
+import { Page } from "../models/Page"
+import { SprintAttributes } from "../models/SprintAttributes"
+import Board from "../models/Board"
+import Task from "../models/Task"
 
 export default class SprintRepository implements ISprintRepository {
-    async createSprint(newSprint: CreationAttributes<Sprint>): Promise<boolean> {
-		let createdSprint = await Sprint.create(newSprint);
-		return !!createdSprint;
+  async createSprint(newSprint: CreationAttributes<Sprint>): Promise<boolean> {
+    let createdSprint = await Sprint.create(newSprint)
+    return !!createdSprint
 	}
 
 	async findAllSprints(boardId: number, page: Page): Promise<Page> {
@@ -28,7 +28,7 @@ export default class SprintRepository implements ISprintRepository {
 		})
 		page.content = rows
 		page.registersCount = count
-		return page;
+		return page
 	}
 
   async removeSprint(sprintId: number): Promise<boolean> {

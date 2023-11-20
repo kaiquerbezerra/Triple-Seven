@@ -1,11 +1,11 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../utils/sequelizeConnection';
-import { InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { DataTypes, Model } from 'sequelize'
+import sequelize from '../utils/sequelizeConnection'
+import { InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize'
 
 class UserBoard extends Model<InferAttributes<UserBoard>, InferCreationAttributes<UserBoard>> { 
-  declare userId: CreationOptional<number>;
-  declare boardId: CreationOptional<number>;
-  declare isAdmin: CreationOptional<boolean>;
+  declare userId: CreationOptional<number>
+  declare boardId: CreationOptional<number>
+  declare isAdmin: CreationOptional<boolean>
 }
 
 UserBoard.init(
@@ -31,7 +31,7 @@ UserBoard.init(
   }
 )
 
-export default UserBoard;
+export default UserBoard
 
 
 
