@@ -17,22 +17,9 @@ export default class UserService implements IUserService{
   async create(newUser: CreationAttributes<User>): Promise<boolean> {
     if(!this.validateEmail(newUser.email)){
       throw new UserValidationError('Email')
-  }
-    try{
-      UserSchema.validateSync(newUser)
-      const password = await bcrypt.hash(newUser.password, 10);
-
-      return await this.userRepository.createUser({
-        ... newUser,
-        password
-      })
-    }catch(error){
-      if (error instanceof ValidationError && error.path){
-        throw new UserValidationError(error.path, error.value)
-      }else {
-        throw new Error('O email informado já foi cadastrado')
-      }
     }
+    const password = await bcrypt.hash(newUser.password, 10)
+    return await this.userRepository.createUser({... newUser, password })
   }
 
   async remove(userId: number): Promise<boolean> {

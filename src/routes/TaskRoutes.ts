@@ -14,9 +14,9 @@ const taskController: TaskController = new TaskController(taskService)
 router.use(authMiddleware)
 
 router.post('/', (req, res) => taskController.postTask(req, res))
-router.get('/', (req, res) => taskController.getAllTasks(req, res))
-router.get('/:id', (req, res) => taskController.getTask(req, res))
+router.get('/', (req, res) => taskController.getTasks(req, res))
+router.get('/:id', (req, res) => taskController.getTaskById(req, res))
 router.put('/:id', (req, res) => taskController.patchTask(req, res))
-router.delete('/id', (req, res) => taskController.deleteTask(req, res))
+router.delete('/:id', (req, res) => taskController.deleteTask(req, res))
 
 export default router

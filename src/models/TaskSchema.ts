@@ -1,4 +1,4 @@
-import { object, string } from "yup"
+import { boolean, number, object, string } from "yup"
 
 export default object({
   name: string().required().trim().max(20),
@@ -8,5 +8,8 @@ export default object({
     "Red",
     "Blue",
     "Yellow"
-  ])
+  ]),
+  finished: boolean().optional(),
+  sprintId: number().required(),
+  userId: number().optional()
 })

@@ -9,9 +9,9 @@ class Task extends Model<InferAttributes<Task>, InferCreationAttributes<Task>> {
   declare description: CreationOptional<string>
   declare color: CreationOptional<string>
   declare finished: CreationOptional<boolean>
-  declare assignee?: NonAttribute<User>;
+  declare assignee?: NonAttribute<User>
   declare sprintId: number
-  declare userId: number
+  declare userId: CreationOptional<number>
 }
 
 Task.init({

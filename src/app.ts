@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/user', UserRoutes);
-//app.use('/task', TaskRoutes);
+app.use('/task', TaskRoutes);
 //app.use('/sprint', SprintRoutes);
 //app.use('/board', BoardRoutes);
 
