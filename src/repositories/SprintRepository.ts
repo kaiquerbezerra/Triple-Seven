@@ -39,22 +39,18 @@ export default class SprintRepository implements ISprintRepository {
         }
       })
       let deletedSprintRows = await Sprint.destroy({ where: { id: sprintId } })
-      console.log(deletedSprintRows)
       return deletedSprintRows > 0
     } catch (error) {
-      console.log(error)
       throw new Error("Erro ao deletar a sprint")
     }
   }
 
   async editSprint(sprintId: number, changes: SprintAttributes): Promise<boolean> {
-    console.log(changes)
     let affectedCount = await Sprint.update(changes, {
       where: { 
         id: sprintId 
       }
     })
-    console.log(affectedCount[0])
     return affectedCount[0] > 0
   }
 

@@ -33,12 +33,12 @@ class BoardController implements IBoardController {
     if (!wasCreationSuccessful) {
       return res.status(500).json({
         success: false,
-        message: 'Erro: Board não foi cadastrado.'
+        message: "Board não foi cadastrado."
       })
     }
     return res.status(201).json({
       success: true,
-      message: 'Board cadastrado com sucesso!'
+      message: "Board cadastrado com sucesso!"
     })
   }
 
@@ -63,7 +63,7 @@ class BoardController implements IBoardController {
     if (!wasEditionSuccessful) {
       return res.status(500).json({
         success: false,
-        message: 'Erro: Board não foi editado.'
+        message: 'Board não foi editado.'
       })
     }
     return res.status(201).json({
@@ -84,7 +84,7 @@ class BoardController implements IBoardController {
     if (!wasDeletionSuccessful) {
       return res.status(500).json({
         success: false,
-        message: 'Erro: Board não foi deletado.'
+        message: 'Board não foi deletado.'
       })
     }
     return res.status(201).json({
@@ -112,6 +112,37 @@ class BoardController implements IBoardController {
                 erro: error
             },
         })
+    }
+  }
+
+  async inviteBoard({ userData, params }: IAuthRequest, res: Response): Promise<Response> {
+    if (!userData?.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Apenas o usuários cadastrados podem entrar em um quadro"
+      })
+    }
+    try{
+      let boardId = parseInt(params.id)
+      let wasInviteSuccessful = await this.boardService.enter(userData.id, boardId)
+      if (!wasInviteSuccessful) {
+        return res.status(500).json({
+          success: false,
+          message: 'Não foi possível entrar no quadro.'
+        })
+      }
+      return res.status(201).json({
+        success: true,
+        message: 'Convite aceito com sucesso!'
+      })
+    } catch(error) {
+      return res.status(500).json({
+        error: {
+            status: true,
+            message: 'Erro no servidor',
+            erro: error
+        },
+      })
     }
   }
 

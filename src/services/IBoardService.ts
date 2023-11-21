@@ -11,6 +11,7 @@ export default interface IBoardService {
   verifyBoardAutoApproval(boardId: number, userId: number | undefined): Promise<boolean>
   edit(boardId: number, editedBoard: CreationAttributes<Board>): Promise<boolean>
   create(adminId: number, newBoard: CreationAttributes<Board>): Promise<boolean>
+  enter(userId: number, boardId: number): Promise<boolean>
   findAll(pagination: Page): Promise<Page>
   remove(boardId: number): Promise<boolean>
 }

@@ -25,7 +25,9 @@ module.exports = {
         references: {
           model: 'boards',
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       }
     });
   },

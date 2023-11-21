@@ -1,7 +1,5 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, NonAttribute } from "sequelize"
 import sequelize from "../utils/sequelizeConnection"
-import User from "./User"
-import Sprint from "./Sprint"
 
 class Task extends Model<InferAttributes<Task>, InferCreationAttributes<Task>> {
   declare id: CreationOptional<number>

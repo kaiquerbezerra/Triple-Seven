@@ -34,13 +34,11 @@ export default class TaskRepository implements ITaskRepository {
   }
   }
   async editTask(taskId: number, changes: TaskAttributes): Promise<boolean> {
-    console.log(changes)
     let affectedCount = await Task.update(changes, {
       where: { 
         id: taskId 
       }
     })
-    console.log(affectedCount[0])
     return affectedCount[0] > 0
   }
   async verifyTaskOwnerPermission(taskId: number, userId: number): Promise<boolean>  {

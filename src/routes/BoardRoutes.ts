@@ -16,5 +16,6 @@ router.post('/', (req, res) => boardController.postBoard(req, res))
 router.get('/', (req, res) => boardController.getBoards(req, res))
 router.put('/:id', (req, res) => boardController.patchBoard(req, res))
 router.delete('/:id', (req, res) => boardController.deleteBoard(req, res))
+router.post('/invite/:id', (req, res) => boardController.inviteBoard(req, res))
 
 export default router

@@ -66,7 +66,6 @@ class UserController implements IUserController {
 
   async deleteUser({userData, params}: IAuthRequest, res: Response): Promise<Response> {
     let userId = parseInt(params.id)
-    console.log(userId, userData?.id)
     if (userId !== userData?.id) {
       return res.status(403).json({
         success: false,

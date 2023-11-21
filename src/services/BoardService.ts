@@ -16,6 +16,10 @@ export default class BoardService implements IBoardService{
     return await this.boardRepository.createBoard(adminId, newBoard)
   }
 
+  async enter(userId: number, boardId: number): Promise<boolean> {
+    return await this.boardRepository.enterBoard(userId, boardId)
+  }
+
   async findAll(pagination: Page): Promise<Page>{
     return await this.boardRepository.findAllBoards(pagination)
   }

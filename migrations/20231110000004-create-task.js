@@ -36,14 +36,18 @@ module.exports = {
         references: {
           model: 'sprints',
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       userId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: 'users',
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       }
     });
   },

@@ -4,6 +4,7 @@ import { Response } from "express"
 
 export default interface IBoardController {
   getBoardService(): BoardService
+  inviteBoard(req: IAuthRequest, res: Response): Promise<Response>
   postBoard(req: IAuthRequest, res: Response): Promise<Response>
   getBoards(req: IAuthRequest, res:Response): Promise<Response>
   patchBoard(req: IAuthRequest, res: Response): Promise<Response>

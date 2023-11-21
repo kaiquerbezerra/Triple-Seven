@@ -11,10 +11,19 @@ module.exports = {
         email: process.env.ADMIN_EMAIL,
         birthday: process.env.ADMIN_BIRTHDAY,
         phone: process.env.ADMIN_PHONE,
-        password: process.env.ADMIN_PASSWORD,
+        password: "$2a$10$eT31NhwkoW2HH.AiiGVNsetaUnZ88HiQCVPIQ7xmislUBpkgmSZTe",
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        name: "Usuario Teste",
+        email: "teste@gmail.com",
+        birthday: "1982-07-10",
+        phone: "(81) 91111-11111",
+        password: "$2a$10$eT31NhwkoW2HH.AiiGVNsetaUnZ88HiQCVPIQ7xmislUBpkgmSZTe",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ])
   },
 

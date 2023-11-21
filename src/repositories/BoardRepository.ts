@@ -4,8 +4,6 @@ import Board from "../models/Board"
 import UserBoard from "../models/UserBoard"
 import { Page } from "../models/Page"
 import { BoardAttributes } from "../models/BoardAttributes"
-import Task from "../models/Task"
-import Sprint from "../models/Sprint"
 
 export default class BoardRepository implements IBoardRepository {
   async createBoard(userId: number, newBoard: CreationAttributes<Board>): Promise<boolean> {
@@ -16,7 +14,17 @@ export default class BoardRepository implements IBoardRepository {
       isAdmin: true
     }
     let createdRelation = await UserBoard.create(userBoardRelation)
-    return !!createdRelation && !!userBoardRelation
+    return !!createdRelation && !!createdBoard
+	}
+
+  async enterBoard(userId: number, boardId: number): Promise<boolean> {
+    let userBoardRelation = {
+      userId: userId,
+      boardId: boardId,
+      isAdmin: false
+    }
+    let createdRelation = await UserBoard.create(userBoardRelation)
+    return !!createdRelation
 	}
 
 	async findAllBoards(page: Page): Promise<Page> {
@@ -33,22 +41,18 @@ export default class BoardRepository implements IBoardRepository {
   async removeBoard(boardId: number): Promise<boolean> {
     try {
       let deletedBoardRows = await Board.destroy({ where: { id: boardId } })
-      console.log(deletedBoardRows)
       return deletedBoardRows > 0
     } catch (error) {
-      console.log(error)
       throw new Error("Erro ao deletar a board")
     }
   }
 
   async editBoard(boardId: number, changes: BoardAttributes): Promise<boolean> {
-    console.log(changes)
     let affectedCount = await Board.update(changes, {
       where: { 
         id: boardId 
       }
     })
-    console.log(affectedCount[0])
     return affectedCount[0] > 0
   }
 
