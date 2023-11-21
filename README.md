@@ -29,7 +29,15 @@ O **Triple Seven** é um sistema de gerenciamento de projetos projetado para fac
 1. Clone o repositório para a sua máquina local.
    ```bash
    git clone https://github.com/kaiquerbezerra/triple-seven.git
-2. cd triple seven
+   ```
+
+2. Adentre o diretório 
+   ```bash 
+   cd triple seven
+   ```
+
 3. Crie um arquivo .env e adicione as variáveis de ambiente
 4. Verifique se exite conexão com o banco de dados
-5. docker compose up
+5. Rode o container
+   ```bash
+   docker compose up
